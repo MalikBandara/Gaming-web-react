@@ -50,7 +50,7 @@ body {
 
   @font-face {
     font-family: zentry;
-    src: url('../src/fonts/zentry.woff2') format('woff2');
+    src: url('../src/fonts/zentry-regular.woff2') format('woff2');
   }
 }
 
