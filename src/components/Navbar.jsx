@@ -4,7 +4,13 @@ import Button from './Button.jsx'
 import { useState } from 'react'
 import { useWindowScroll } from 'react-use'
 import gsap from 'gsap'
-const navItems = ['Nexus', 'Vault', 'Prologue', 'About', 'Contact']
+const navItems = [
+  { label: 'Nexus', href: '#nexus' },
+  { label: 'Vault', href: '#vault' },
+  { label: 'Prologue', href: '#prologue' },
+  { label: 'About', href: '#about' },
+  { label: 'Contact', href: '#contact' },
+]
 
 const Navbar = () => {
   const [isAudioPlaying, setIsAudioPlaying] = useState(false)
@@ -22,28 +28,26 @@ const Navbar = () => {
   const { y: currentScrollY } = useWindowScroll()
 
   useEffect(() => {
-    if(currentScrollY === 0 ) {
+    if (currentScrollY === 0) {
       setIsNavVisible(true)
-      navCOntainerRef.current.classList.remove('floating-nav');
+      navCOntainerRef.current.classList.remove('floating-nav')
     } else if (currentScrollY > lastScrollY) {
-        setIsNavVisible(false)
-        navCOntainerRef.current.classList.add('floating-nav');
-    }else if(currentScrollY < lastScrollY) {
-        setIsNavVisible(true)
-        navCOntainerRef.current.classList.add('floating-nav');
-
+      setIsNavVisible(false)
+      navCOntainerRef.current.classList.add('floating-nav')
+    } else if (currentScrollY < lastScrollY) {
+      setIsNavVisible(true)
+      navCOntainerRef.current.classList.add('floating-nav')
     }
-    setLastScrollY(currentScrollY , lastScrollY)
+    setLastScrollY(currentScrollY, lastScrollY)
   }, [currentScrollY])
 
-
-  useEffect(()=>{
-    gsap.to(navCOntainerRef.current , {
-        y: isNavVisible ? 0 : '-100%',
-        opacity: isNavVisible ? 1 : 0,
-        duration: 0.2,
+  useEffect(() => {
+    gsap.to(navCOntainerRef.current, {
+      y: isNavVisible ? 0 : '-100%',
+      opacity: isNavVisible ? 1 : 0,
+      duration: 0.2,
     })
-  } , [isNavVisible])
+  }, [isNavVisible])
 
   const toggleAudioIndicatory = () => {
     setIsAudioPlaying(prev => !prev)
@@ -78,8 +82,8 @@ const Navbar = () => {
           <div className="flex h-full items-center ">
             <div className="hidden md:block ">
               {navItems.map(item => (
-                <a key={item} className="nav-hover-btn">
-                  {item}
+                <a key={item.label} href={item.href} className="nav-hover-btn">
+                  {item.label}
                 </a>
               ))}
             </div>
